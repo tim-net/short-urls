@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1" author="Timofei Netisov">
+        <createTable tableName="urls" remarks="URL entry">
+            <column autoIncrement="true" name="id" type="bigint" remarks="ID">
+                <constraints primaryKey="true"
+                             primaryKeyName="pk_url"
+                             nullable="false"/>
+            </column>
+            <column name="code" type="varchar(6)" remarks="Short Code">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="original_url" type="varchar(255)" remarks="Long url"/>
+
+            <column name="created" type="timestamp" defaultValueComputed="current_timestamp"/>
+            <column name="updated" type="timestamp" defaultValueComputed="current_timestamp" valueComputed="current_timestamp"/>
+        </createTable>
+        <createIndex tableName="urls" indexName="idx_code">
+            <column name="code"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

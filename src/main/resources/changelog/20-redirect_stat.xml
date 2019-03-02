@@ -1,0 +1,27 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1" author="Timofei Netisov">
+        <createTable tableName="redirect_stat" remarks="Statistics about redirection">
+            <column autoIncrement="true" name="id" type="bigint" remarks="ID">
+                <constraints primaryKey="true"
+                             primaryKeyName="pk_redirect_stat"
+                             nullable="false"/>
+            </column>
+            <column name="url_id" type="bigint" remarks="URL entity link">
+                <constraints nullable="false"/>
+            </column>
+            <column name="redirect_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+        </createTable>
+        <createIndex tableName="redirect_stat" indexName="idx_url_id">
+            <column name="url_id"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="url_id"
+                                 baseTableName="redirect_stat"
+                                 constraintName="fk_statistics_url"
+                                 referencedColumnNames="id"
+                                 referencedTableName="urls"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>

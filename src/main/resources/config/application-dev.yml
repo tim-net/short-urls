@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: Short urls application
+  datasource:
+    url: jdbc:h2:mem::shorturls.db;DB_CLOSE_DELAY=-1;MODE=MySQL;MV_STORE=FALSE;MVCC=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        id.new_generator_mappings: true
+        generate_statistics: false
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+    show-sql: false
+  liquibase:
+    change-log: classpath:/changelog/master.xml
+    enabled: true
+  h2:
+    console:
+      enabled: true
+      path: /h2console
+  profiles:
+    active: default
+    include: swagger
+
+# ===================================================================
+# Logback configuration
+# ===================================================================
+
+logging:
+  level:
+    root: INFO
+
+server:
+  port: 8080
+springfox:
+  documentation:
+    swagger:
+      ui:
+        path: swagger
+        enabled: true

@@ -1,0 +1,16 @@
+urls:
+  - id: 1
+    code: fRie8d
+    original_url: http://testOriginalUrl
+    created: "2019-01-01 00:00:00"
+    updated: "2019-02-01 00:00:00"
+redirect_stat:
+  - id: 1
+    url_id: 1
+    redirect_date: "2019-01-01 00:00:00"
+  - id: 2
+    url_id: 1
+    redirect_date: "2019-01-02 00:00:00"
+  - id: 3
+    url_id: 1
+    redirect_date: "2019-01-03 00:00:00"

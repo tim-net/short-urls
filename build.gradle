@@ -1,0 +1,106 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "http://repo.spring.io/plugins-release" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.franzbecker:gradle-lombok:${gradle_lombok_version}"
+        classpath "org.springframework.build.gradle:propdeps-plugin:${propdeps_plugin_version}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependency_management_plugin_version}"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'propdeps'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'io.franzbecker.gradle-lombok'
+
+defaultTasks 'bootRun'
+
+group = 'com.neueda'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'http://repo.spring.io/milestone' }
+    maven { url 'http://repo.spring.io/snapshot' }
+    maven { url 'http://repo.maven.apache.org/maven2' }
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    /** Database packages**/
+    compile('org.liquibase:liquibase-core')
+    compile("com.h2database:h2:${h2database_version}")
+
+    /* Hibernate packages */
+    compile "org.hibernate:hibernate-core:${org_hibernate_version}"
+    compile "org.hibernate:hibernate-entitymanager:${org_hibernate_version}"
+
+    /* Commons packages */
+    compile "org.apache.commons:commons-lang3:${commons_lang_version}"
+
+    /* Swagger packages */
+    compile "io.springfox:springfox-swagger2:${io_springfox_swagger_version}"
+    compile "io.springfox:springfox-swagger-ui:${io_springfox_swagger_version}"
+
+    /* Cache */
+    compile "org.hibernate:hibernate-ehcache:${hibernate_ehcache_version}"
+
+    /* Lombok */
+    compileOnly "org.projectlombok:lombok:${org_projectlombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${org_projectlombok_version}"
+
+
+    /* Test packages */
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.springframework.security:spring-security-test"
+    testCompile "junit:junit:${junit_version}"
+    testCompile "com.h2database:h2:${h2database_version}"
+    testCompile "org.mockito:mockito-core:${mockito_version}"
+    testCompile "org.dbunit:dbunit:${dbunit_version}"
+    testCompile "com.github.springtestdbunit:spring-test-dbunit:${spring_test_dbunit_version}"
+}
+
+def profile = 'default'
+
+if (project.hasProperty('dev')) {
+    profile = 'dev'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["$projectDir/src/main/resources"]
+        }
+    }
+}
+
+lombok {
+    version = org_projectlombok_version
+}
+
+compileJava.dependsOn(processResources)
+
+processResources {
+    filesMatching('**/application.yml') {
+        filter {
+            it.replace('#spring.profiles.active#', profile)
+        }
+    }
+}
+
+bootRun {
+    args = ["--spring.profiles.active=" + profile]
+}
+
