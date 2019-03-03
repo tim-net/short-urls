@@ -12,6 +12,7 @@ gradlew.bat bootRun
 ```
 The application may be run in  a docker container, Dockerfile for creation of an image is located in root folder. Example of creation and launching with exposing http port to 8080:
 ```sh
+gradle build
 docker build -t shorturls .
 docker run -p 8080:80 shorturls
 ```
