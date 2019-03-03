@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * Test class for redirection statistics repository testing.
+ */
 @DatabaseSetup("/data/repository/db-before.yml")
 @DatabaseSetup("/data/repository/redirect-stat/db-before.yml")
 @DatabaseTearDown("/data/repository/db-teardown.yml")

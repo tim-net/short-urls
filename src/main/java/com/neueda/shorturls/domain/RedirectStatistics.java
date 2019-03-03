@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+/**
+ * DB entity for storing the statistics of redirects of an url.
+ */
 @Entity
 @Table(name = "redirect_stat")
 @EqualsAndHashCode(of = "id")

@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+/**
+ * REST controller for operating with functionality
+ * concerning short urls
+ */
 @RestController
 @RequestMapping("/api/urls")
 public class ShortUrlController {
@@ -17,6 +21,12 @@ public class ShortUrlController {
         this.shortUrlService = shortUrlService;
     }
 
+    /**
+     * Creates a short url from a long one.
+     *
+     * @param longUrl A long URL for which to create a short one.
+     * @return representation with created short url
+     */
     @PutMapping
     public ShortUrlRepresentation create(String longUrl) {
         String code = shortUrlService.createAndGetCode(longUrl);

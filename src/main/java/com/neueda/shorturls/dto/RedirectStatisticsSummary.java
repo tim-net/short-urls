@@ -5,6 +5,10 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+/**
+ * DTO object for getting summary statistics from DB.
+ * Used in the JPA query as a return type.
+ */
 @AllArgsConstructor
 @Getter
 public class RedirectStatisticsSummary {

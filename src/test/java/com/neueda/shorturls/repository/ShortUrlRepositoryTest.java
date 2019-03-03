@@ -13,16 +13,19 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * Test class for short urls repository testing.
+ */
 @DatabaseSetup("/data/repository/db-before.yml")
 @DatabaseSetup("/data/repository/urls/db-before.yml")
 @DatabaseTearDown("/data/repository/db-teardown.yml")
-public class ShortUrlRepositoryTest extends RepositoryTestBase  {
+public class ShortUrlRepositoryTest extends RepositoryTestBase {
     @Autowired
     private ShortUrlRepository shortUrlRepository;
 
     @Test
-    public void givenShortUrlExists(){
-        Long id =1L;
+    public void givenShortUrlExists() {
+        Long id = 1L;
         List<ShortURL> shortURLS = shortUrlRepository.findAll();
         assertNotNull(shortURLS);
         assertEquals(1, shortURLS.size());

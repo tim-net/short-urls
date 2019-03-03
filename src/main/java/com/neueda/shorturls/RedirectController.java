@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * Controller to process HTTP requests of short urls.
+ */
 @Controller
 @RequestMapping("/")
 public class RedirectController {
@@ -22,6 +25,13 @@ public class RedirectController {
         this.redirectStatisticsService = redirectStatisticsService;
     }
 
+    /**
+     * Gets the long url by its code (which is a path)
+     * and redirects to the correspondent long url.
+     *
+     * @param code Code by which to do the redirection.
+     * @return Object used in spring framework to resolve to the redirection.
+     */
     @GetMapping("{code}")
     public ModelAndView redirect(@PathVariable String code) {
         ShortURL url = shortUrlService.getByCode(code);

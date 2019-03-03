@@ -20,6 +20,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 
+/**
+ * Configuration for swagger.
+ */
 @Profile(value = {"swagger"})
 @Configuration
 @EnableSwagger2

@@ -22,6 +22,9 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * DB entity for storing created short urls.
+ */
 @Entity
 @Table(name = "urls")
 @Getter

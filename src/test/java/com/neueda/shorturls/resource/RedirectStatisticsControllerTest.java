@@ -26,6 +26,9 @@ import java.time.Month;
 
 import static org.mockito.Mockito.doReturn;
 
+/**
+ * Test class for redirection statistics REST controller testing.
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = RedirectStatisticsController.class)
 public class RedirectStatisticsControllerTest {

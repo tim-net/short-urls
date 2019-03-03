@@ -33,6 +33,9 @@ import java.time.Month;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
+/**
+ * Test class for short urls REST controller testing.
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = ShortUrlController.class)
 public class ShortUrlControllerTest {

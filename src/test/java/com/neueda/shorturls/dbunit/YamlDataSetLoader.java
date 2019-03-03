@@ -55,7 +55,7 @@ public class YamlDataSetLoader extends AbstractDataSetLoader {
 
         void createTable(String name, List<Map<String, Object>> rows) {
             YamlDataTable table = new YamlDataTable(name,
-                (rows != null && rows.size() > 0) ? new ArrayList<>(rows.get(0).keySet()) : null);
+                    (rows != null && rows.size() > 0) ? new ArrayList<>(rows.get(0).keySet()) : null);
             if (rows != null) {
                 for (Map<String, Object> values : rows) {
                     table.addRow(values);

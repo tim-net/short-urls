@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST controller for getting redirection statistics.
+ */
 @RestController
 @RequestMapping("/api/redirect-statistics")
 public class RedirectStatisticsController {
@@ -17,6 +20,13 @@ public class RedirectStatisticsController {
         this.redirectStatisticsService = redirectStatisticsService;
     }
 
+    /**
+     * Returns representation object including summary statistics
+     * of redirects
+     *
+     * @param code A short code  - path of the short url
+     * @return statistics
+     */
     @GetMapping("/summary")
     public RedirectStatisticsRepresentation getStatistics(String code) {
         RedirectStatisticsSummary summary = redirectStatisticsService.findSummaryByCode(code);

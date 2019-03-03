@@ -15,7 +15,8 @@
             <column name="original_url" type="varchar(255)" remarks="Long url"/>
 
             <column name="created" type="timestamp" defaultValueComputed="current_timestamp"/>
-            <column name="updated" type="timestamp" defaultValueComputed="current_timestamp" valueComputed="current_timestamp"/>
+            <column name="updated" type="timestamp" defaultValueComputed="current_timestamp"
+                    valueComputed="current_timestamp"/>
         </createTable>
         <createIndex tableName="urls" indexName="idx_code">
             <column name="code"/>
