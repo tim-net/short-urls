@@ -2,10 +2,13 @@ package com.neueda.shorturls.api.rest;
 
 import com.neueda.shorturls.api.rest.representation.RedirectStatisticsRepresentation;
 import com.neueda.shorturls.dto.RedirectStatisticsSummary;
+import com.neueda.shorturls.exception.CodeNotFoundException;
 import com.neueda.shorturls.service.RedirectStatisticsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * REST controller for getting redirection statistics.
@@ -30,6 +33,10 @@ public class RedirectStatisticsController {
     @GetMapping("/summary")
     public RedirectStatisticsRepresentation getStatistics(String code) {
         RedirectStatisticsSummary summary = redirectStatisticsService.findSummaryByCode(code);
+        if(summary == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Code is not found "+ code, new CodeNotFoundException(code));
+        }
         return RedirectStatisticsRepresentation.builder()
                 .code(summary.getCode())
                 .count(summary.getCount())

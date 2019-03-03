@@ -24,6 +24,6 @@ public interface RedirectStatisticsRepository extends JpaRepository<RedirectStat
      */
     @Query("select new com.neueda.shorturls.dto.RedirectStatisticsSummary(s.url.code, s.url.originalUrl," +
             " min(s.redirectDate), max(s.redirectDate), count(s)) " +
-            "from RedirectStatistics s where s.url.code=:code")
+            "from RedirectStatistics s where s.url.code=:code group by s.url.code, s.url.originalUrl")
     RedirectStatisticsSummary findSummaryByCode(@Param("code") String code);
 }

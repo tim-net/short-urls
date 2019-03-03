@@ -4,10 +4,12 @@ import com.neueda.shorturls.domain.ShortURL;
 import com.neueda.shorturls.exception.CodeNotFoundException;
 import com.neueda.shorturls.service.RedirectStatisticsService;
 import com.neueda.shorturls.service.ShortUrlService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -33,10 +35,11 @@ public class RedirectController {
      * @return Object used in spring framework to resolve to the redirection.
      */
     @GetMapping("{code}")
-    public ModelAndView redirect(@PathVariable String code) {
+    public ModelAndView redirect(@PathVariable String code){
         ShortURL url = shortUrlService.getByCode(code);
         if (url == null) {
-            throw new CodeNotFoundException(code);
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Code is not found "+ code, new CodeNotFoundException(code));
         }
         redirectStatisticsService.create(url);
         return new ModelAndView("redirect:" + url.getOriginalUrl());
